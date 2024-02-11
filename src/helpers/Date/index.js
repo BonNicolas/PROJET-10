@@ -13,4 +13,6 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+export const getMonth = (date) => MONTHS[date.getMonth()+1]; 
+
+// Ajout de +1 afin que le talbeau commence bien à l'index 1 (janvier) et pas à l'index 0 //
