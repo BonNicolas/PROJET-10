@@ -7,24 +7,29 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+  
+  const byDateDesc = data?.focus?.sort((evtA, evtB) =>
+  // Modification du sens d'apparition des slides des plus anciennes au plus récentes //
+    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
   );
+
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
-      5000
-    );
-  };
+  setTimeout(() => {
+    // Rajout d'une condition afin de vérifier que byDateDesc est défini et byDateDesc.length contient au moins un élément avant de l'utiliser pour notre modulo//
+    if (byDateDesc && byDateDesc.length > 0) {
+      setIndex((index + 1) % byDateDesc.length); // Utilisation de l'opérateur modulo afin que le slideshow boucle //
+    }
+  }, 5000);
+};
   useEffect(() => {
     nextCard();
   });
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        <div key={event.title}>
           <div
-            key={event.title}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -50,7 +55,7 @@ const Slider = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
