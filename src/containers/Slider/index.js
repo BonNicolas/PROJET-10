@@ -25,10 +25,12 @@ const Slider = () => {
     nextCard();
   });
 
+  
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <div key={event.title}>
+        // Rajout d'un id dans "focus" dans le fichier json afin d'éviter l'erreur Warning: Each child in a list should have a unique “key” prop. //
+        <div key={event.id}> 
           <div className={`SlideCard SlideCard--${
             index === idx ? "display" : "hide"}`}>
             <img src={event.cover} alt="forum" />
@@ -42,12 +44,14 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {byDateDesc.map((radioEvent, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                  key={radioEvent.id}
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx}
+                  // Rajout de l'attribut onchange pour éviter l'erreur Warning: You provided a `checked` prop to a form field without an `onChange` handler//
+                  onChange={() => setIndex(radioIdx)}
                 />
               ))}
             </div>

@@ -1,6 +1,8 @@
 .Logo {
   margin: 22px;
 
+  /* Ajout du style pour la typo du logo directement en SCSS plutôt que dans le HTML afin de retirer une erreur */
+
   & text {
     font-family: "Kalimati";
     font-size: 39px;
